@@ -70,6 +70,7 @@ export default function BriefingForm() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           access_key: WEB3FORMS_ACCESS_KEY,
+          from_name: 'Formulário Fora Travel',
           subject: `Novo Briefing de Viagem: ${contato.nome} ${contato.sobrenome}`,
           nome_completo: `${contato.nome} ${contato.sobrenome}`,
           celular: `${contato.codigoPais} ${contato.celular}`,
