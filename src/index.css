@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Paleta de cores do site — não alterar os nomes das variáveis, só os valores. */
+  --color-background: #FEFAF5;
+  --color-primary: #77742A;
+  --color-secondary: #827363;
+  --color-text: #131313;
+  --color-white: #FFFFFF;
+
+  /*
+    Fontes: usando substitutas gratuitas do Google Fonts enquanto as fontes pagas
+    (Chiswick Sans Text para título, Blanco para corpo) não são licenciadas.
+
+    Quando as fontes pagas forem compradas:
+    1. Adicionar os arquivos de fonte em src/assets/fonts/
+    2. Declarar @font-face para cada uma logo abaixo deste bloco
+    3. Trocar apenas os valores de --font-heading e --font-body abaixo.
+    Nenhum componente precisa ser tocado.
+  */
+  --font-heading: 'Bricolage Grotesque', sans-serif;
+  --font-body: 'Newsreader', serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-text);
+  font-family: var(--font-body);
+}
