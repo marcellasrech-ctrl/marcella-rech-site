@@ -6,6 +6,7 @@ import About from './components/About'
 import BriefingForm from './components/BriefingForm'
 import Faq from './components/Faq'
 import Footer from './components/Footer'
+import WhatsAppButton from './components/WhatsAppButton'
 
 export default function App() {
   return (
@@ -20,6 +21,7 @@ export default function App() {
         <Faq />
       </main>
       <Footer />
+      <WhatsAppButton />
     </>
   )
 }

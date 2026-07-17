@@ -10,6 +10,6 @@ export const siteConfig = {
   role: 'Travel Advisor',
   social: {
     instagram: 'https://instagram.com/',
-    whatsapp: 'https://wa.me/',
+    whatsapp: 'https://wa.me/5551998992904',
   },
 }

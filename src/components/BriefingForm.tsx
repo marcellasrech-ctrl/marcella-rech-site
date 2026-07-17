@@ -125,7 +125,7 @@ export default function BriefingForm() {
             />
           </div>
 
-          <div className="bg-background p-6 sm:p-10">
+          <div className="bg-background p-6 pb-24 sm:p-10">
             <input
               id="botcheck"
               type="text"
