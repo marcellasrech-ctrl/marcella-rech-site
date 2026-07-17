@@ -7,15 +7,23 @@ import { Step1 } from './briefing/Step1'
 import { Step2 } from './briefing/Step2'
 import { Step3 } from './briefing/Step3'
 import { Step4 } from './briefing/Step4'
+import { Step5 } from './briefing/Step5'
 import { SuccessScreen } from './briefing/SuccessScreen'
 import { formatCurrency } from './briefing/ui'
 import briefingBg from '../assets/briefing-bg.png'
 
+const TOTAL_STEPS = 5
+
 const stepTitles: Record<number, string> = {
   1: 'Vamos nos conhecer',
   2: 'Conte sobre a viagem',
-  3: 'Seu estilo e preferências',
-  4: 'Alergias e restrições (opcional)',
+  3: 'Os objetivos da sua viagem',
+  4: 'Seu estilo e preferências',
+  5: 'Alergias e restrições (opcional)',
+}
+
+const stepSubtitles: Record<number, string> = {
+  3: 'O que você está buscando?',
 }
 
 type Status = 'idle' | 'loading' | 'success' | 'error'
@@ -33,6 +41,9 @@ export default function BriefingForm() {
   const updateViagem = (patch: Partial<BriefingFormData['viagem']>) =>
     setFormData((prev) => ({ ...prev, viagem: { ...prev.viagem, ...patch } }))
 
+  const updateObjetivos = (patch: Partial<BriefingFormData['objetivos']>) =>
+    setFormData((prev) => ({ ...prev, objetivos: { ...prev.objetivos, ...patch } }))
+
   const updatePreferencias = (patch: Partial<BriefingFormData['preferencias']>) =>
     setFormData((prev) => ({ ...prev, preferencias: { ...prev.preferencias, ...patch } }))
 
@@ -42,7 +53,7 @@ export default function BriefingForm() {
   const canContinue = validateStep(currentStep, formData)
 
   const handleNext = () => {
-    if (canContinue && currentStep < 4) setCurrentStep((s) => s + 1)
+    if (canContinue && currentStep < TOTAL_STEPS) setCurrentStep((s) => s + 1)
   }
 
   const handleBack = () => {
@@ -55,7 +66,7 @@ export default function BriefingForm() {
     setStatus('loading')
     setErrorMessage('')
 
-    const { contato, viagem, preferencias, restricoes } = formData
+    const { contato, viagem, objetivos, preferencias, restricoes } = formData
 
     const datas =
       viagem.tipoData === 'especifica'
@@ -63,6 +74,10 @@ export default function BriefingForm() {
         : `${viagem.duracaoFlexivel}, aproximadamente ${viagem.mesAnoFlexivel}`
 
     const todasAlergias = [...restricoes.alergiasComuns, ...restricoes.alergiasCustomizadas]
+
+    const objetivosViagem = objetivos.selecionados
+      .map((item) => (item === 'Outro' && objetivos.outroTexto ? `Outro: ${objetivos.outroTexto}` : item))
+      .join(', ')
 
     try {
       const response = await fetch('https://api.web3forms.com/submit', {
@@ -84,6 +99,8 @@ export default function BriefingForm() {
           para_quem: viagem.paraQuem,
           orcamento_total: formatCurrency(viagem.orcamentoTotal),
           orcamento_por_noite: formatCurrency(viagem.orcamentoPorNoite),
+          ja_comprou_passagens: viagem.passagemComprada === 'sim' ? 'Sim' : viagem.passagemComprada === 'nao' ? 'Não' : 'Não informado',
+          objetivos_da_viagem: objetivosViagem || 'Nenhum',
           estagio_planejamento: preferencias.estagioPlanejamento,
           tipo_ajuda: preferencias.tipoAjuda.join(', '),
           estilo_viagem: preferencias.estiloViagem.join(', '),
@@ -125,7 +142,7 @@ export default function BriefingForm() {
             />
           </div>
 
-          <div className="bg-background p-6 pb-24 sm:p-10">
+          <div className="bg-primary p-6 pb-24 sm:p-10">
             <input
               id="botcheck"
               type="text"
@@ -141,16 +158,21 @@ export default function BriefingForm() {
               <SuccessScreen />
             ) : (
               <>
-                <ProgressBar currentStep={currentStep} />
+                <ProgressBar currentStep={currentStep} totalSteps={TOTAL_STEPS} />
 
-                <h2 className="mb-6 font-heading text-2xl font-semibold text-text sm:text-3xl">
+                <h2 className="font-heading text-2xl font-semibold text-background sm:text-3xl">
                   {stepTitles[currentStep]}
                 </h2>
+                {stepSubtitles[currentStep] && (
+                  <p className="mb-6 mt-1 font-body italic text-background/80">{stepSubtitles[currentStep]}</p>
+                )}
+                {!stepSubtitles[currentStep] && <div className="mb-6" />}
 
                 {currentStep === 1 && <Step1 data={formData.contato} onChange={updateContato} />}
                 {currentStep === 2 && <Step2 data={formData.viagem} onChange={updateViagem} />}
-                {currentStep === 3 && <Step3 data={formData.preferencias} onChange={updatePreferencias} />}
-                {currentStep === 4 && <Step4 data={formData.restricoes} onChange={updateRestricoes} />}
+                {currentStep === 3 && <Step3 data={formData.objetivos} onChange={updateObjetivos} />}
+                {currentStep === 4 && <Step4 data={formData.preferencias} onChange={updatePreferencias} />}
+                {currentStep === 5 && <Step5 data={formData.restricoes} onChange={updateRestricoes} />}
 
                 {status === 'error' && (
                   <p className="mt-6 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700">{errorMessage}</p>
@@ -161,7 +183,7 @@ export default function BriefingForm() {
                     <button
                       type="button"
                       onClick={handleBack}
-                      className="flex items-center gap-1 font-body text-sm text-text hover:text-primary"
+                      className="flex items-center gap-1 font-body text-sm text-background hover:opacity-80"
                     >
                       <ChevronLeft size={18} />
                       Voltar
@@ -170,12 +192,12 @@ export default function BriefingForm() {
                     <span />
                   )}
 
-                  {currentStep < 4 ? (
+                  {currentStep < TOTAL_STEPS ? (
                     <button
                       type="button"
                       onClick={handleNext}
                       disabled={!canContinue}
-                      className="flex items-center gap-2 rounded-full bg-primary px-6 py-3 font-body text-sm font-medium text-background transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
+                      className="flex items-center gap-2 rounded-full bg-background px-6 py-3 font-body text-sm font-medium text-primary transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
                     >
                       Continuar
                       <ArrowRight size={16} />
@@ -185,7 +207,7 @@ export default function BriefingForm() {
                       type="button"
                       onClick={handleSubmit}
                       disabled={status === 'loading'}
-                      className="flex items-center gap-2 rounded-full bg-primary px-6 py-3 font-body text-sm font-medium text-background transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
+                      className="flex items-center gap-2 rounded-full bg-background px-6 py-3 font-body text-sm font-medium text-primary transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
                     >
                       {status === 'loading' ? 'Enviando...' : 'Enviar'}
                       <ArrowRight size={16} />

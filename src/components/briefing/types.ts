@@ -27,6 +27,11 @@ export interface BriefingFormData {
     paraQuem: ParaQuem | ''
     orcamentoTotal: number
     orcamentoPorNoite: number
+    passagemComprada: 'sim' | 'nao' | ''
+  }
+  objetivos: {
+    selecionados: string[]
+    outroTexto: string
   }
   preferencias: {
     estagioPlanejamento: EstagioPlanejamento | ''
@@ -63,6 +68,11 @@ export const initialFormData: BriefingFormData = {
     paraQuem: '',
     orcamentoTotal: 20000,
     orcamentoPorNoite: 800,
+    passagemComprada: '',
+  },
+  objetivos: {
+    selecionados: [],
+    outroTexto: '',
   },
   preferencias: {
     estagioPlanejamento: '',
@@ -102,7 +112,7 @@ export function validateStep(step: number, data: BriefingFormData): boolean {
     return Boolean(duracaoFlexivel && mesAnoFlexivel)
   }
 
-  if (step === 3) {
+  if (step === 4) {
     const { estagioPlanejamento, tipoAjuda, estiloViagem } = data.preferencias
     return Boolean(estagioPlanejamento) && tipoAjuda.length > 0 && estiloViagem.length > 0
   }

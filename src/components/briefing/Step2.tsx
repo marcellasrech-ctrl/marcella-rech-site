@@ -12,10 +12,10 @@ export function Step2({
   return (
     <div className="flex flex-col gap-6">
       <TextField
-        label="Qual o seu destino?"
+        label="Qual destino você tem em mente? Caso não tenha, me conta as expectativas para essa viagem, vai ser nacional ou internacional?"
         value={data.destino}
         onChange={(v) => onChange({ destino: v })}
-        placeholder="Escreva o destino que você tem em mente"
+        placeholder="Ex: gostaria de viajar para a Ásia, ainda não decidi quais países. Quero ir para um lugar tranquilo, longe de turistas..."
       />
 
       <SelectField
@@ -71,6 +71,18 @@ export function Step2({
       <div>
         <FieldLabel>Para quem é a viagem?</FieldLabel>
         <PillSingle options={paraQuemOptions} value={data.paraQuem} onChange={(v) => onChange({ paraQuem: v })} />
+      </div>
+
+      <div>
+        <FieldLabel>Você já comprou passagens?</FieldLabel>
+        <Toggle
+          options={[
+            { value: 'sim', label: 'Sim' },
+            { value: 'nao', label: 'Não' },
+          ]}
+          value={data.passagemComprada}
+          onChange={(v) => onChange({ passagemComprada: v })}
+        />
       </div>
 
       <SliderField

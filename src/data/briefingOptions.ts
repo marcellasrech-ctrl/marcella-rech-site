@@ -91,3 +91,18 @@ export const requisitosOptions = [
 ]
 
 export const alergiasComunsOptions = ['Lactose', 'Amendoim', 'Vegano', 'Vegetariano', 'Nozes']
+
+export const objetivosViagemOptions = [
+  'Desacelerar',
+  'Conexão com a natureza',
+  'Fazer novas amizades e socializar',
+  'Aventura e adrenalina',
+  'Explorar a vida noturna',
+  'Desfrutar da gastronomia',
+  'Imersão cultural',
+  'Autoconhecimento',
+  'Fortalecer laços',
+  'Desenvolvimento profissional',
+  'Ainda não pensei sobre isso',
+  'Outro',
+]
