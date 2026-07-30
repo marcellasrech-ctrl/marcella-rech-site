@@ -40,7 +40,7 @@ function toId(label: string) {
 
 export function FieldLabel({ htmlFor, children }: { htmlFor?: string; children: ReactNode }) {
   return (
-    <label htmlFor={htmlFor} className="mb-2 block font-body text-sm text-background">
+    <label htmlFor={htmlFor} className="mb-2 block font-body text-sm text-text">
       {children}
     </label>
   )
@@ -141,7 +141,7 @@ export function TextAreaField({
         className={inputClasses}
       />
       {maxLength && (
-        <p className="mt-1 text-right font-body text-xs text-background/70">
+        <p className="mt-1 text-right font-body text-xs text-secondary">
           {value.length}/{maxLength}
         </p>
       )}
@@ -169,8 +169,8 @@ export function PillSingle<T extends string>({
             onClick={() => onChange(option.value)}
             className={`rounded-full border px-5 py-2.5 font-body text-sm transition-colors ${
               selected
-                ? 'border-background bg-background text-primary'
-                : 'border-background/40 bg-transparent text-background hover:border-background'
+                ? 'border-primary bg-primary text-background'
+                : 'border-secondary/40 bg-background text-text hover:border-primary'
             }`}
           >
             {option.label}
@@ -201,8 +201,8 @@ export function PillMulti({
             onClick={() => onToggle(option)}
             className={`rounded-full border px-5 py-2.5 font-body text-sm transition-colors ${
               selected
-                ? 'border-background bg-background text-primary'
-                : 'border-background/40 bg-transparent text-background hover:border-background'
+                ? 'border-primary bg-primary text-background'
+                : 'border-secondary/40 bg-background text-text hover:border-primary'
             }`}
           >
             {option}
@@ -234,8 +234,8 @@ export function IconOptionMulti({
             onClick={() => onToggle(option.value)}
             className={`flex items-center gap-3 rounded-xl border px-4 py-3 text-left font-body text-sm transition-colors ${
               selected
-                ? 'border-background bg-background text-primary'
-                : 'border-background/40 bg-transparent text-background hover:border-background'
+                ? 'border-primary bg-primary text-background'
+                : 'border-secondary/40 bg-background text-text hover:border-primary'
             }`}
           >
             {Icon && <Icon size={18} className="shrink-0" />}
@@ -257,7 +257,7 @@ export function Toggle<T extends string>({
   onChange: (value: T) => void
 }) {
   return (
-    <div className="inline-flex rounded-full border border-background/40 p-1">
+    <div className="inline-flex rounded-full border border-secondary/40 p-1">
       {options.map((option) => {
         const selected = value === option.value
         return (
@@ -266,7 +266,7 @@ export function Toggle<T extends string>({
             type="button"
             onClick={() => onChange(option.value)}
             className={`rounded-full px-4 py-2 font-body text-sm transition-colors ${
-              selected ? 'bg-background text-primary' : 'text-background'
+              selected ? 'bg-primary text-background' : 'text-text'
             }`}
           >
             {option.label}
@@ -302,7 +302,7 @@ export function SliderField({
     <div>
       <div className="mb-2 flex items-baseline justify-between">
         <FieldLabel>{label}</FieldLabel>
-        <span className="font-heading text-lg font-semibold text-background">
+        <span className="font-heading text-lg font-semibold text-primary">
           {formatCurrency(value)}
           {value >= max ? suffixWhenMax : ''}
         </span>
@@ -314,7 +314,7 @@ export function SliderField({
         step={step}
         value={value}
         onChange={(e) => onChange(Number(e.target.value))}
-        className="w-full accent-background"
+        className="w-full accent-primary"
       />
     </div>
   )

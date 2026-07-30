@@ -47,14 +47,14 @@ export function Step5({
             {data.alergiasCustomizadas.map((item) => (
               <span
                 key={item}
-                className="flex items-center gap-2 rounded-full bg-background px-4 py-2 font-body text-sm text-primary"
+                className="flex items-center gap-2 rounded-full bg-primary/10 px-4 py-2 font-body text-sm text-text"
               >
                 {item}
                 <button
                   type="button"
                   onClick={() => removeRestricao(item)}
                   aria-label={`Remover ${item}`}
-                  className="text-primary/60 hover:text-primary"
+                  className="text-secondary hover:text-primary"
                 >
                   <X size={14} />
                 </button>
@@ -82,7 +82,7 @@ export function Step5({
             <button
               type="button"
               onClick={addRestricao}
-              className="shrink-0 rounded-xl bg-background px-4 py-3 font-body text-sm text-primary"
+              className="shrink-0 rounded-xl bg-primary px-4 py-3 font-body text-sm text-background"
             >
               Adicionar
             </button>
@@ -91,7 +91,7 @@ export function Step5({
           <button
             type="button"
             onClick={() => setShowInput(true)}
-            className="flex items-center gap-1 font-body text-sm text-background hover:underline"
+            className="flex items-center gap-1 font-body text-sm text-primary hover:underline"
           >
             <Plus size={16} />
             adicionar outra restrição

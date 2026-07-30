@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { ArrowRight, ChevronLeft } from 'lucide-react'
-import { WEB3FORMS_ACCESS_KEY } from '../data/siteConfig'
+import { WEB3FORMS_ACCESS_KEY, siteConfig } from '../data/siteConfig'
 import { initialFormData, validateStep, type BriefingFormData } from './briefing/types'
 import { ProgressBar } from './briefing/ProgressBar'
 import { Step1 } from './briefing/Step1'
@@ -117,9 +117,7 @@ export default function BriefingForm() {
         setStatus('success')
       } else {
         setStatus('error')
-        setErrorMessage(
-          'Não consegui enviar seu briefing agora. Tente novamente em instantes ou me chame direto pelo WhatsApp.',
-        )
+        setErrorMessage('Não consegui enviar seu briefing agora. Tente novamente em instantes.')
       }
     } catch {
       setStatus('error')
@@ -142,7 +140,7 @@ export default function BriefingForm() {
             />
           </div>
 
-          <div className="bg-primary p-6 pb-24 sm:p-10">
+          <div className="bg-background p-6 pb-24 sm:p-10">
             <input
               id="botcheck"
               type="text"
@@ -160,11 +158,11 @@ export default function BriefingForm() {
               <>
                 <ProgressBar currentStep={currentStep} totalSteps={TOTAL_STEPS} />
 
-                <h2 className="font-heading text-2xl font-semibold text-background sm:text-3xl">
+                <h2 className="font-heading text-2xl font-semibold text-text sm:text-3xl">
                   {stepTitles[currentStep]}
                 </h2>
                 {stepSubtitles[currentStep] && (
-                  <p className="mb-6 mt-1 font-body italic text-background/80">{stepSubtitles[currentStep]}</p>
+                  <p className="mb-6 mt-1 font-body italic text-secondary">{stepSubtitles[currentStep]}</p>
                 )}
                 {!stepSubtitles[currentStep] && <div className="mb-6" />}
 
@@ -175,7 +173,17 @@ export default function BriefingForm() {
                 {currentStep === 5 && <Step5 data={formData.restricoes} onChange={updateRestricoes} />}
 
                 {status === 'error' && (
-                  <p className="mt-6 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700">{errorMessage}</p>
+                  <div className="mt-6 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700">
+                    <p>{errorMessage}</p>
+                    <a
+                      href={siteConfig.social.whatsapp}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-1 inline-block font-medium underline hover:opacity-80"
+                    >
+                      Ou me chame direto pelo WhatsApp
+                    </a>
+                  </div>
                 )}
 
                 <div className="mt-8 flex items-center justify-between">
@@ -183,7 +191,7 @@ export default function BriefingForm() {
                     <button
                       type="button"
                       onClick={handleBack}
-                      className="flex items-center gap-1 font-body text-sm text-background hover:opacity-80"
+                      className="flex items-center gap-1 font-body text-sm text-text hover:text-primary"
                     >
                       <ChevronLeft size={18} />
                       Voltar
@@ -197,7 +205,7 @@ export default function BriefingForm() {
                       type="button"
                       onClick={handleNext}
                       disabled={!canContinue}
-                      className="flex items-center gap-2 rounded-full bg-background px-6 py-3 font-body text-sm font-medium text-primary transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
+                      className="flex items-center gap-2 rounded-full bg-primary px-6 py-3 font-body text-sm font-medium text-background transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
                     >
                       Continuar
                       <ArrowRight size={16} />
@@ -207,7 +215,7 @@ export default function BriefingForm() {
                       type="button"
                       onClick={handleSubmit}
                       disabled={status === 'loading'}
-                      className="flex items-center gap-2 rounded-full bg-background px-6 py-3 font-body text-sm font-medium text-primary transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
+                      className="flex items-center gap-2 rounded-full bg-primary px-6 py-3 font-body text-sm font-medium text-background transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
                     >
                       {status === 'loading' ? 'Enviando...' : 'Enviar'}
                       <ArrowRight size={16} />

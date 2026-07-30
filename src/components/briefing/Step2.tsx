@@ -1,5 +1,5 @@
 import type { BriefingFormData } from './types'
-import { FieldLabel, PillSingle, SelectField, SliderField, TextField, Toggle } from './ui'
+import { FieldLabel, PillSingle, SelectField, SliderField, TextAreaField, TextField, Toggle } from './ui'
 import { duracaoFlexivelOptions, motivosViagem, paraQuemOptions } from '../../data/briefingOptions'
 
 export function Step2({
@@ -11,8 +11,8 @@ export function Step2({
 }) {
   return (
     <div className="flex flex-col gap-6">
-      <TextField
-        label="Qual destino você tem em mente? Caso não tenha, me conta as expectativas para essa viagem, vai ser nacional ou internacional?"
+      <TextAreaField
+        label="Qual destino você tem em mente? Se ainda não tiver tudo bem, me conta as expectativas para essa viagem, sabe se ela vai ser nacional ou internacional?"
         value={data.destino}
         onChange={(v) => onChange({ destino: v })}
         placeholder="Ex: gostaria de viajar para a Ásia, ainda não decidi quais países. Quero ir para um lugar tranquilo, longe de turistas..."
