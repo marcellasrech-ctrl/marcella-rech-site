@@ -99,7 +99,7 @@ export default function BriefingForm() {
           para_quem: viagem.paraQuem,
           orcamento_total: formatCurrency(viagem.orcamentoTotal),
           orcamento_por_noite: formatCurrency(viagem.orcamentoPorNoite),
-          ja_comprou_passagens: viagem.passagemComprada === 'sim' ? 'Sim' : viagem.passagemComprada === 'nao' ? 'Não' : 'Não informado',
+          passagens_compradas: viagem.passagemComprada === 'sim' ? 'Sim' : viagem.passagemComprada === 'nao' ? 'Não' : 'Não informado',
           objetivos_da_viagem: objetivosViagem || 'Nenhum',
           estagio_planejamento: preferencias.estagioPlanejamento,
           tipo_ajuda: preferencias.tipoAjuda.join(', '),
