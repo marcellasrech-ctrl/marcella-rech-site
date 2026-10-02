@@ -92,6 +92,16 @@ export const requisitosOptions = [
 
 export const alergiasComunsOptions = ['Lactose', 'Amendoim', 'Vegano', 'Vegetariano', 'Nozes']
 
+export const comoConheceuOptions: {
+  value: 'instagram' | 'tiktok' | 'indicacao' | 'outro'
+  label: string
+}[] = [
+  { value: 'instagram', label: 'Instagram' },
+  { value: 'tiktok', label: 'TikTok' },
+  { value: 'indicacao', label: 'Indicação' },
+  { value: 'outro', label: 'Outro' },
+]
+
 export const objetivosViagemOptions = [
   'Desacelerar',
   'Conexão com a natureza',

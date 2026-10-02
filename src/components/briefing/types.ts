@@ -15,6 +15,9 @@ export interface BriefingFormData {
     tipoEmail: TipoEmail
     preferenciaContato: PreferenciaContato | ''
     cidade: string
+    agenciaAnterior: 'sim' | 'nao' | ''
+    experienciaAgencia: string
+    comoConheceu: 'instagram' | 'tiktok' | 'indicacao' | 'outro' | ''
   }
   viagem: {
     destino: string
@@ -56,6 +59,9 @@ export const initialFormData: BriefingFormData = {
     tipoEmail: 'pessoal',
     preferenciaContato: '',
     cidade: '',
+    agenciaAnterior: '',
+    experienciaAgencia: '',
+    comoConheceu: '',
   },
   viagem: {
     destino: '',

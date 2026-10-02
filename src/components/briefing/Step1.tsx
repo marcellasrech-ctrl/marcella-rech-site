@@ -1,6 +1,6 @@
 import type { BriefingFormData } from './types'
-import { FieldLabel, PillSingle, TextField, Toggle } from './ui'
-import { codigosPais } from '../../data/briefingOptions'
+import { FieldLabel, PillSingle, TextAreaField, TextField, Toggle } from './ui'
+import { codigosPais, comoConheceuOptions } from '../../data/briefingOptions'
 
 export function Step1({
   data,
@@ -81,6 +81,33 @@ export function Step1({
       </div>
 
       <TextField label="Qual a sua cidade?" value={data.cidade} onChange={(v) => onChange({ cidade: v })} />
+
+      <div>
+        <FieldLabel>Já contratou alguma agência de viagens antes?</FieldLabel>
+        <Toggle
+          options={[
+            { value: 'sim', label: 'Sim' },
+            { value: 'nao', label: 'Não' },
+          ]}
+          value={data.agenciaAnterior}
+          onChange={(v) => onChange({ agenciaAnterior: v })}
+        />
+      </div>
+
+      <TextAreaField
+        label="Se você marcou sim, como foi a experiência? Se essa é sua primeira vez, o que você espera do meu serviço?"
+        value={data.experienciaAgencia}
+        onChange={(v) => onChange({ experienciaAgencia: v })}
+      />
+
+      <div>
+        <FieldLabel>Como conheceu o meu trabalho?</FieldLabel>
+        <PillSingle
+          options={comoConheceuOptions}
+          value={data.comoConheceu}
+          onChange={(v) => onChange({ comoConheceu: v })}
+        />
+      </div>
     </div>
   )
 }

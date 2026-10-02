@@ -86,7 +86,7 @@ export function Step2({
       </div>
 
       <SliderField
-        label="Qual o orçamento total para a viagem?"
+        label="Qual o orçamento total para a viagem? (Sem considerar gastos durante a viagem, como compras ou restaurantes)"
         value={data.orcamentoTotal}
         onChange={(v) => onChange({ orcamentoTotal: v })}
         min={0}

@@ -93,6 +93,10 @@ export default function BriefingForm() {
           tipo_email: contato.tipoEmail,
           preferencia_contato: contato.preferenciaContato,
           cidade: contato.cidade,
+          contratou_agencia_antes:
+            contato.agenciaAnterior === 'sim' ? 'Sim' : contato.agenciaAnterior === 'nao' ? 'Não' : 'Não informado',
+          experiencia_ou_expectativa: contato.experienciaAgencia || 'Não informado',
+          como_conheceu: contato.comoConheceu || 'Não informado',
           destino: viagem.destino,
           motivo_viagem: viagem.motivo,
           datas,
